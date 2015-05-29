@@ -9,6 +9,7 @@
   "author": "Evgen Filatov",
   "license": "MIT",
   "dependencies": {
+    "applescript": "^1.0.0",
     "async": "^1.0.0",
     "commander": "^2.8.1",
     "playmusic": "git+ssh://git@github.com:wtfil/playmusic",

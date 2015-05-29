@@ -5,7 +5,7 @@ var async = require('async');
 var util = require('util');
 var ProgressBar = require('progress');
 var google = require('./lib/providers/google');
-var loadSong = require('./lib/load-song');
+var iTunes = require('./lib/itunes');
 
 var DOWNLOAD_DIR = process.env.HOME + '/.gmsync-cache';
 
@@ -20,11 +20,13 @@ function downloadSongs(songs, cb) {
 	try {
 		fs.mkdirSync(DOWNLOAD_DIR);
 	} catch (e) {};
+	var playlist = 'gs-random-string';
 	var bar = new ProgressBar('Downloading [:bar] :percent :etas', {
 		complete: '#',
 		total: songs.length,
 		width: 50
 	});
+	iTunes.createPlaylist(playlist);
 	bar.tick(0);
 
 	async.each(
@@ -40,12 +42,12 @@ function downloadSongs(songs, cb) {
 						return cb(err);
 					}
 					request(url)
-						.on('end', function () {
-							bar.tick();
-							cb();
-						})
 						.pipe(fs.createWriteStream(filename))
 						.on('error', console.error)
+						.on('close', function () {
+							bar.tick();
+							iTunes.addFilenameToPlaylist(playlist, filename, cb);
+						});
 				});
 			});
 		},
