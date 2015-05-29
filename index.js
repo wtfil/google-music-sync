@@ -16,28 +16,29 @@ programm
 	.option('-d, --download', 'Download songs and sync with iTunes')
 	.parse(process.argv);
 
-function downloadSongs(songs, cb) {
+function downloadSongs(playlist, cb) {
 	try {
 		fs.mkdirSync(DOWNLOAD_DIR);
 	} catch (e) {};
-	var playlist = 'gs-random-string';
+	var playlistName = 'gs-' + playlist.name;
 	var bar = new ProgressBar('Downloading [:bar] :percent :etas', {
 		complete: '#',
-		total: songs.length,
+		total: playlist.songs.length,
 		width: 50
 	});
-	iTunes.createPlaylist(playlist);
+	iTunes.createPlaylist(playlistName);
 	bar.tick(0);
 
 	async.each(
-		songs,
+		playlist.songs,
 		function (song, cb) {
 			var filename = util.format('%s/%s — %s.mp3', DOWNLOAD_DIR, song.artist, song.title);
 			fs.readFile(filename, function (err) {
 				if (!err) {
+					iTunes.addFilenameToPlaylist(playlistName, filename, cb);
 					return bar.tick();
 				}
-				google.getStreamUrl(songs[0].storeId, function (err, url) {
+				google.getStreamUrl(song.storeId, function (err, url) {
 					if (err) {
 						return cb(err);
 					}
@@ -46,7 +47,7 @@ function downloadSongs(songs, cb) {
 						.on('error', console.error)
 						.on('close', function () {
 							bar.tick();
-							iTunes.addFilenameToPlaylist(playlist, filename, cb);
+							iTunes.addFilenameToPlaylist(playlistName, filename, cb);
 						});
 				});
 			});
@@ -55,21 +56,21 @@ function downloadSongs(songs, cb) {
 	);
 }
 
-function printSongs(songs) {
-	songs.forEach(function (item, index) {
+function printSongs(playlist) {
+	playlist.songs.forEach(function (item, index) {
 		console.log('%s) %s — %s', index, item.artist, item.title);
 	});
 }
 
 if (programm.playlist) {
-	google.getPlayListsSongs(programm.playlist, function (err, songs) {
+	google.getPlayListWithSongs(programm.playlist, function (err, playlist) {
 		if (err) {
 			return console.error(err);
 		}
 		if (programm.download) {
-			downloadSongs(songs);
+			downloadSongs(playlist);
 		} else {
-			printSongs(songs);
+			printSongs(playlist);
 		}
 	});
 } else {
