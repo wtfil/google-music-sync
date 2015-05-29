@@ -1,52 +1,29 @@
-var PlayMusic = require('playmusic');
-var readline = require('readline-sync');
-var fs = require('fs');
-var pm = new PlayMusic();
+var programm = require('commander');
+var google = require('./lib/providers/google');
 
-var HOME = process.env.HOME || process.env.USERPROFILE;
-var LOGIN_FILE = HOME + '/.gmsync';
+programm
+	.version(require('./package').version)
+	.usage('[options]')
+	.option('-p, --playlist [num]', 'Show playlist')
+	.parse(process.argv);
 
-
-function login(cb) {
-	var config, loginData, email, password;
-
-	try {
-		config = fs.readFileSync(LOGIN_FILE);
-		config = JSON.parse(config);
-	} catch (e) {
-		config = {};
-	};
-
-	if (config.gm && config.gm.token) {
-		loginData = {
-			masterToken: config.gm.token
-		};
-	} else {
-		email = readline.question('Email: ');
-		password = readline.question('Password (' + email + '): ', {hideEchoBack: true, mask: ''});
-		loginData = {
-			email: email,
-			password: password
-		};
-	}
-
-	pm.init(loginData, function (err, data) {
+if (programm.playlist) {
+	google.getPlayListsSongs(programm.playlist, function (err, songs) {
 		if (err) {
-			return cb(err);
+			return console.error(err);
 		}
-		if (email) {
-			config.gm = {
-				token: pm.getMasterToken()
-			};
-			fs.writeFile(LOGIN_FILE, JSON.stringify(config), function (err) {});
+		songs.forEach(function (item, index) {
+			console.log('%s) %s — %s', index, item.artist, item.title);
+		});
+	});
+} else {
+	google.getPlayLists(function (err, playlists) {
+		if (err) {
+			return console.error(err);
 		}
-		cb(null);
+		playlists.forEach(function (item, index) {
+			console.log('%s) %s', index, item.name);
+		});
 	});
 }
 
-return login(function () {
-	pm.getAllTracks(function (err, playlist) {
-		console.log(err);
-		console.log(playlist);
-	})
-});
