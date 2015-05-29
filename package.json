@@ -1,0 +1,15 @@
+{
+  "name": "gm-to-itunes",
+  "version": "0.0.0",
+  "description": "sync google music and itunes",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Evgen Filatov",
+  "license": "MIT",
+  "dependencies": {
+    "playmusic": "git+ssh://git@github.com:wtfil/playmusic",
+    "readline-sync": "^1.2.17"
+  }
+}
