@@ -1,12 +1,9 @@
 {
   "name": "google-music-sync",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "sync from google music to your itunes",
   "main": "index.js",
   "bin": "index.js",
-  "scripts": {
-    "test": ""
-  },
   "author": "Evgen Filatov",
   "license": "MIT",
   "dependencies": {
