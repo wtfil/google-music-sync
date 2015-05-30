@@ -8,7 +8,7 @@
   "license": "MIT",
   "repository": {
 	"type": "git",
-	"url: "git@github.com:wtfil/google-music-sync.git"
+	"url": "git@github.com:wtfil/google-music-sync.git"
   },
   "dependencies": {
     "applescript": "^1.0.0",
