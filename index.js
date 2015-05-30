@@ -21,7 +21,7 @@ function downloadSongs(playlist, cb) {
 	try {
 		fs.mkdirSync(DOWNLOAD_DIR);
 	} catch (e) {};
-	var playlistName = 'gs-' + playlist.name;
+	var playlistName = 'gm-' + playlist.name;
 	var bar = new ProgressBar('Downloading [:bar] :percent :etas', {
 		complete: '#',
 		total: playlist.songs.length,
@@ -80,6 +80,7 @@ if (programm.playlist) {
 		if (err) {
 			return console.error(err);
 		}
+		console.log('Your playlists:');
 		playlists.forEach(function (item, index) {
 			console.log('%s) %s', index, item.name);
 		});

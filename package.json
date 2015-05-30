@@ -1,6 +1,6 @@
 {
   "name": "google-music-sync",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "sync from google music to your itunes",
   "main": "index.js",
   "bin": "index.js",
