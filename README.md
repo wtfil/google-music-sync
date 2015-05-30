@@ -6,17 +6,17 @@ Sync your google music playlists to iTunes for offline listening or for future s
 
 ## Usage
 
-google-music-sync can show list of you playlist, playlist's tracks or download that tracks for ofline usage
+google-music-sync can show list of you playlists, playlist's tracks or can download that tracks for offline usage
 
-Show list of your playlists:
+Show your playlists:
 
 	google-music-sync
 
-With option `-p` `--playlist` you can see the list of songs it playlist
+With option `-p` or `--playlist` you can see the list of songs in playlist
 
 	google-music-sync --playlist 2  #songs from playlist with index 2
 
-If you want to download that songs and crate iTunes playlist
+If you want to download that songs and crate iTunes playlist with them
 
 	google-music-sync --playlist 2 --download
 
