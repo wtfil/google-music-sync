@@ -1,11 +1,15 @@
 {
   "name": "google-music-sync",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Sync google music playlists to your iTunes",
   "main": "index.js",
   "bin": "index.js",
   "author": "Evgen Filatov",
   "license": "MIT",
+  "repository": {
+	"type": "git",
+	"url: "git@github.com:wtfil/google-music-sync.git"
+  },
   "dependencies": {
     "applescript": "^1.0.0",
     "async": "^1.0.0",
