@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 var programm = require('commander');
 var request = require('request');
 var fs = require('fs');
