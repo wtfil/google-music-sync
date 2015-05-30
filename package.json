@@ -1,10 +1,10 @@
 {
-  "name": "gm-to-itunes",
-  "version": "0.0.0",
-  "description": "sync google music and itunes",
+  "name": "google-music-sync",
+  "version": "0.1.0",
+  "description": "sync from google music to your itunes",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": ""
   },
   "author": "Evgen Filatov",
   "license": "MIT",
