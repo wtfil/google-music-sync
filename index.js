@@ -49,7 +49,6 @@ function downloadSongs(playlist, cb) {
 						.on('close', function () {
 							bar.tick();
 							iTunes.addFilenameToPlaylist(playlistName, filename, cb);
-							cb();
 						});
 				});
 			});
