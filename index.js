@@ -64,7 +64,7 @@ function downloadSongs(playlist, cb) {
 				});
 			});
 		},
-		cb
+		process.exit
 	);
 }
 
