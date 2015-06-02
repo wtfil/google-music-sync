@@ -17,6 +17,22 @@ programm
 	.option('-d, --download', 'Download songs and sync with iTunes')
 	.parse(process.argv);
 
+function getFileName(song) {
+	return util.format('%s/%s — %s.mp3', DOWNLOAD_DIR, song.artist, song.title);
+}
+function downloadSong(song, cb) {
+	var filename = getFileName(song);
+	var unfinishedFilename = filename + '-part';
+	google.getStreamUrl(song.storeId, function (err, url) {
+		request(url)
+			.pipe(fs.createWriteStream(unfinishedFilename))
+			.on('error', console.error)
+			.on('close', function () {
+				fs.rename(unfinishedFilename, filename, cb);
+			});
+	});
+}
+
 function downloadSongs(playlist, cb) {
 	try {
 		fs.mkdirSync(DOWNLOAD_DIR);
@@ -33,23 +49,18 @@ function downloadSongs(playlist, cb) {
 	async.each(
 		playlist.songs,
 		function (song, cb) {
-			var filename = util.format('%s/%s — %s.mp3', DOWNLOAD_DIR, song.artist, song.title);
+			var filename = getFileName(song);
 			fs.readFile(filename, function (err) {
 				if (!err) {
 					iTunes.addFilenameToPlaylist(playlistName, filename, cb);
 					return bar.tick();
 				}
-				google.getStreamUrl(song.storeId, function (err, url) {
+				downloadSong(song, function (err) {
 					if (err) {
 						return cb(err);
 					}
-					request(url)
-						.pipe(fs.createWriteStream(filename))
-						.on('error', console.error)
-						.on('close', function () {
-							bar.tick();
-							iTunes.addFilenameToPlaylist(playlistName, filename, cb);
-						});
+					bar.tick();
+					iTunes.addFilenameToPlaylist(playlistName, filename, cb);
 				});
 			});
 		},
