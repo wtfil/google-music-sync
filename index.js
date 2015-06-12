@@ -3,7 +3,6 @@ var programm = require('commander');
 var ProgressBar = require('progress');
 var google = require('./lib/providers/google');
 var download = require('./lib/download');
-var iTunes = require('./lib/itunes');
 
 programm
 	.version(require('./package').version)
@@ -13,19 +12,14 @@ programm
 	.parse(process.argv);
 
 function downloadSongs(playlist) {
-	var playlistName = 'gm-' + playlist.name;
 	var bar = new ProgressBar('Downloading [:bar] :percent :etas', {
 		complete: '#',
 		total: playlist.songs.length,
 		width: 50
 	});
 	bar.tick(0);
-	iTunes.createPlaylist(playlistName);
 	download(playlist)
-		.on('item', function (filename) {
-			bar.tick();
-			iTunes.addFilenameToPlaylist(playlistName, filename);
-		})
+		.on('item', bar.tick.bind(bar))
 		.on('end', process.exit);
 }
 
