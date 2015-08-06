@@ -21,3 +21,14 @@ If you want to download that songs and crate iTunes playlist with them
 	google-music-sync --playlist 2 --download
 
 It will download all songs to `~/.gmsync-cache` folder and create iTunes playlist with prefix `gm-` and name from google music
+
+## Search music
+
+You can search for music
+
+	google-music-sync --seach "The offspring"
+
+or you can create playlist base on result
+
+	google-music-sync --seach "The offspring" --download
+

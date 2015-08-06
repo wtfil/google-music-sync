@@ -8,6 +8,7 @@ programm
 	.version(require('./package').version)
 	.usage('[options]')
 	.option('-p, --playlist [num]', 'Show playlist')
+	.option('-s, --search [text]', 'Search')
 	.option('-d, --download', 'Download songs and sync with iTunes')
 	.parse(process.argv);
 
@@ -31,6 +32,17 @@ function printSongs(playlist) {
 
 if (programm.playlist) {
 	google.getPlayListWithSongs(programm.playlist, function (err, playlist) {
+		if (err) {
+			return console.error(err);
+		}
+		if (programm.download) {
+			downloadSongs(playlist);
+		} else {
+			printSongs(playlist);
+		}
+	});
+} else if (programm.search) {
+	google.search(programm.search, function (err, playlist) {
 		if (err) {
 			return console.error(err);
 		}
