@@ -4,6 +4,9 @@ Sync your google music playlists to iTunes for offline listening or for future s
 
 	npm install -g google-music-sync
 
+![gms](https://cloud.githubusercontent.com/assets/1421128/11244770/04f29202-8e18-11e5-964c-b7ae6f48b1a7.gif)
+
+
 ## Usage
 
 google-music-sync can show list of you playlists, playlist's tracks or can download that tracks for offline usage
