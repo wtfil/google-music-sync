@@ -35,3 +35,6 @@ or you can create playlist base on result
 
 	google-music-sync --seach "The offspring" --download
 
+## Export favorite songs
+
+	google-music-sync --favorites --download
