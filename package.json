@@ -1,6 +1,6 @@
 {
   "name": "google-music-sync",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "Sync google music playlists to your iTunes",
   "main": "index.js",
   "bin": "index.js",
@@ -15,7 +15,7 @@
     "commander": "^2.8.1",
     "inquirer": "^0.11.0",
     "itunes-control": "^0.0.1",
-    "playmusic": "^2.1.0",
+    "playmusic": "^2.1.1",
     "progress": "^1.1.8",
     "readline-sync": "^1.2.17",
     "request": "^2.56.0"
