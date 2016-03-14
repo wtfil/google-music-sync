@@ -29,11 +29,11 @@ It will download all songs to `~/.gmsync-cache` folder and create iTunes playlis
 
 You can search for music
 
-	google-music-sync --seach "The offspring"
+	google-music-sync --search "The offspring"
 
 or you can create playlist base on result
 
-	google-music-sync --seach "The offspring" --download
+	google-music-sync --search "The offspring" --download
 
 ## Export favorite songs
 
