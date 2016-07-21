@@ -8,14 +8,14 @@ function printSongs(songs) {
 	});
 }
 
-function downloadSongs(songs, name) {
+function downloadSongs(songs, path, name) {
 	var bar = new ProgressBar('Downloading [:bar] :percent :etas', {
 		complete: '#',
 		total: songs.length,
 		width: 50
 	});
 	bar.tick(0);
-	download(songs, name)
+	download(songs, path, name)
 		.on('item', bar.tick.bind(bar))
 		.on('end', process.exit);
 }
@@ -28,7 +28,7 @@ module.exports = function (opts) {
 		var songs = data.songs || data;
 		var name = opts.favorites ? 'favorites' : data.name;
 		if (opts.download) {
-			return downloadSongs(songs, name);
+			return downloadSongs(songs, opts.path, name);
 		}
 		printSongs(songs);
 	}

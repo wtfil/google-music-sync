@@ -10,6 +10,7 @@ programm
 	.option('-f, --favorites', 'show the list of favorite songs')
 	.option('-p, --playlist [num]', 'show the list of songs for playlist')
 	.option('-s, --search [text]', 'search')
+	.option('--path [text]', 'download folder. ~/.gmsync is default')
 	.option('-d, --download', 'download songs and sync with iTunes')
 	.parse(process.argv);
 
@@ -43,6 +44,7 @@ google.getPlayLists(function (err, playlists) {
 	};
 	inquirer.prompt([playlistQ, actionQ], function (aswers) {
 		actions({
+			path: programm.path,
 			playlist: aswers.playlist,
 			download: aswers.action === 'download'
 		});
