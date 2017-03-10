@@ -15,6 +15,7 @@
     "commander": "^2.8.1",
     "inquirer": "^0.11.0",
     "itunes-control": "^0.0.1",
+    "node-id3": "^0.0.9",
     "playmusic": "^2.1.1",
     "progress": "^1.1.8",
     "readline-sync": "^1.2.17",
